@@ -1,2 +1,0 @@
-Soy Valentina Bueno
-Estoy es una prueba de feature y posterior merge en develop :D
