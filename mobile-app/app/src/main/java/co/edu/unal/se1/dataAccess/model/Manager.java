@@ -6,50 +6,50 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class User implements Serializable {
+public class Manager implements Serializable {
 
     @PrimaryKey
-    @ColumnInfo(name = "idU")
-    public int id;
+    @ColumnInfo(name = "idM")
+    public int id_m;
 
-    @ColumnInfo(name = "name")
-    public String name;
+    @ColumnInfo(name = "nameM")
+    public String name_m;
 
-    @ColumnInfo(name = "mail")
-    public String mail;
+    @ColumnInfo(name = "mailM")
+    public String mail_m;
 
-    @ColumnInfo(name = "password")
-    public String password;
+    @ColumnInfo(name = "passwordM")
+    public String password_m;
 
     public int getId() {
-        return id;
+        return id_m;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_m = id;
     }
 
     public String getName() {
-        return name;
+        return name_m;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name_m = name;
     }
 
     public String getMail() {
-        return mail;
+        return mail_m;
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.mail_m = mail;
     }
 
     public String getPassword() {
-        return password;
+        return password_m;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password_m = password;
     }
 }
