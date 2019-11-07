@@ -2,15 +2,12 @@ package co.edu.unal.se1.businessLogic.controller;
 
 import android.content.Context;
 
-import co.edu.unal.se1.dataAccess.model.Count;
 import co.edu.unal.se1.dataAccess.model.User;
-import co.edu.unal.se1.dataAccess.repository.CountRepository;
 import co.edu.unal.se1.dataAccess.repository.UserRepository;
 
 public class UserController {
 
     private UserRepository userRepository;
-    private CountRepository countRepository;
 
     public UserController() {
 
@@ -25,43 +22,34 @@ public class UserController {
 
     public boolean sendMoney(int sourceId, int targetId, double value, Context context) {
 
-        countRepository = new CountRepository(context);
+        userRepository = new UserRepository(context);
 
-        final Count sourceUserC = countRepository.getCountById(sourceId);
-        final User sourceUser = countRepository.getUserByIdC(sourceId);
-
-        System.out.println("Count Source User - ID: " + sourceUserC.getId() +
-                "Source User - ID: " + sourceUser.getId() +
+        final User sourceUser = userRepository.getUserById(sourceId);
+        System.out.println("Source User - ID: " + sourceUser.getId() +
                 ", Name: " + sourceUser.getName() +
-                ", Balance: " + sourceUserC.getBalance());
+                ", Balance: " + sourceUser.getBalance());
 
-        if (sourceUserC.getBalance() >= value) {
+        if (sourceUser.getBalance() >= value) {
 
-            final Count targetUserC = countRepository.getCountById(targetId);
-            final User targetUser = countRepository.getUserByIdC(sourceId);
-
-            System.out.println("Count Target User - ID: " + targetUserC.getId() +
-                    "Target User - ID: " + targetUser.getId() +
+            final User targetUser = userRepository.getUserById(targetId);
+            System.out.println("Target User - ID: " + targetUser.getId() +
                     ", Name: " + targetUser.getName() +
-                    ", Balance: " + targetUserC.getBalance());
+                    ", Balance: " + targetUser.getBalance());
 
-            sourceUserC.setBalance(sourceUserC.getBalance() - value);
-            targetUserC.setBalance(targetUserC.getBalance() + value);
+            sourceUser.setBalance(sourceUser.getBalance() - value);
+            targetUser.setBalance(targetUser.getBalance() + value);
+            userRepository.updateUser(sourceUser);
+            userRepository.updateUser(targetUser);
 
-            countRepository.updateCount(sourceUserC);
-            countRepository.updateCount(targetUserC);
-
-            final Count updatedSourceUserC = countRepository.getCountById(sourceId);
-            final User updatedSourceUser = countRepository.getUserByIdC(sourceId);
+            final User updatedSourceUser = userRepository.getUserById(sourceId);
             System.out.println("Source User (updated) - ID: " + updatedSourceUser.getId() +
                     ", Name: " + updatedSourceUser.getName() +
-                    ", Balance: " + updatedSourceUserC.getBalance());
+                    ", Balance: " + updatedSourceUser.getBalance());
 
-            final Count updatedTargetUserC = countRepository.getCountById(targetId);
-            final User updatedTargetUser = countRepository.getUserByIdC(sourceId);
+            final User updatedTargetUser = userRepository.getUserById(targetId);
             System.out.println("Target User (updated) - ID: " + updatedTargetUser.getId() +
                     ", Name: " + updatedTargetUser.getName() +
-                    ", Balance: " + updatedTargetUserC.getBalance());
+                    ", Balance: " + updatedTargetUser.getBalance());
 
             return true;
 
@@ -70,5 +58,45 @@ public class UserController {
             return false;
         }
 
+    }
+
+
+    //MÉTODO SENDMONEY MODIFICADO PARA PODER PROBAR LA FUNCIONALIDAD
+    public static boolean sendMoneyMod(User sourceUser, User targetUser, double value) {
+
+        //userRepository = new UserRepository(context);
+
+        //final User sourceUser = userRepository.getUserById(sourceId);
+        System.out.println("Source User - ID: " + sourceUser.getId() +
+                ", Name: " + sourceUser.getName() +
+                ", Balance: " + sourceUser.getBalance());
+
+        if (sourceUser.getBalance() >= value) {
+
+            //final User targetUser = userRepository.getUserById(targetId);
+            System.out.println("Target User - ID: " + targetUser.getId() +
+                    ", Name: " + targetUser.getName() +
+                    ", Balance: " + targetUser.getBalance());
+
+            sourceUser.setBalance(sourceUser.getBalance() - value);
+            targetUser.setBalance(targetUser.getBalance() + value);
+            //userRepository.updateUser(sourceUser);
+            //userRepository.updateUser(targetUser);
+
+            //final User updatedSourceUser = userRepository.getUserById(sourceId);
+            System.out.println("Source User (updated) - ID: " + sourceUser.getId() +
+                    ", Name: " + sourceUser.getName() +
+                    ", Balance: " + sourceUser.getBalance());
+
+            //final User updatedTargetUser = userRepository.getUserById(targetId);
+            System.out.println("Target User (updated) - ID: " + targetUser.getId() +
+                    ", Name: " + targetUser.getName() +
+                    ", Balance: " + targetUser.getBalance());
+
+            return true;
+
+        } else {
+            return false;
+        }
     }
 }

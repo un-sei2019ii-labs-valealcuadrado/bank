@@ -9,17 +9,13 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @PrimaryKey
-    @ColumnInfo(name = "idU")
     public int id;
 
     @ColumnInfo(name = "name")
     public String name;
 
-    @ColumnInfo(name = "mail")
-    public String mail;
-
-    @ColumnInfo(name = "password")
-    public String password;
+    @ColumnInfo(name = "balance")
+    public double balance;
 
     public int getId() {
         return id;
@@ -37,19 +33,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getMail() {
-        return mail;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

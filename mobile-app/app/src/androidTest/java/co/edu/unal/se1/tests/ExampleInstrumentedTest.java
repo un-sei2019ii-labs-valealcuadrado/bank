@@ -1,4 +1,4 @@
-package co.edu.unal.se1;
+package co.edu.unal.se1.tests;
 
 import android.content.Context;
 
